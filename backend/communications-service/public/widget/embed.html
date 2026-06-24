@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OngoChat Widget Embed</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+        line-height: 1.5;
+      }
+      code {
+        background: #f4f4f5;
+        padding: 0.15rem 0.35rem;
+        border-radius: 4px;
+      }
+      pre {
+        background: #18181b;
+        color: #fafafa;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>OngoChat embed</h1>
+    <p>Add this snippet before <code>&lt;/body&gt;</code> on an allowed domain:</p>
+    <pre><code>&lt;script&gt;
+  window.OngoChat = window.OngoChat || { q: [] };
+  window.OngoChat.init = function (config) {
+    window.OngoChat.q.push(config);
+  };
+&lt;/script&gt;
+&lt;script src="https://communications.ongocare.com/widget/ongocare-chat.js" async&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.OngoChat.init({ siteKey: "weightloss-main" });
+&lt;/script&gt;</code></pre>
+    <p>Local demo (requires <code>CHAT_ORIGIN_BYPASS=true</code> or matching origin):</p>
+    <script>
+      window.OngoChat = window.OngoChat || { q: [] };
+      window.OngoChat.init = function (config) {
+        window.OngoChat.q.push(config);
+      };
+    </script>
+    <script src="./ongocare-chat.js" async></script>
+    <script>
+      window.OngoChat.init({ siteKey: "weightloss-main" });
+    </script>
+  </body>
+</html>

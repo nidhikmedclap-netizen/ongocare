@@ -1,0 +1,4 @@
+// Rename/copy to LocalDev.xcconfig (gitignored) ONLY if you want Debug builds to skip the cloud URL
+// and use Simulator fallback http://127.0.0.1:3001/token with npm start on your Mac.
+//
+// VOICE_TOKEN_BASE_URL =

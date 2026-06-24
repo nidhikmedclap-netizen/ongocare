@@ -1,0 +1,74 @@
+name: Ongo
+options:
+  bundleIdPrefix: com.ongo
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+    SWIFT_STRICT_CONCURRENCY: complete
+
+targets:
+  Ongo:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: Ongo
+        excludes:
+          - "**/.DS_Store"
+    resources:
+      - path: Ongo/Resources/Assets.xcassets
+      - path: Ongo/Resources/GoogleService-Info.plist
+    info:
+      path: Ongo/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Ongo
+        CFBundleIdentifier: com.ongocare.weightloss
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen:
+          UIColorName: "Background"
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "Ongo uses the camera to scan meals and upload your photo ID."
+        NSPhotoLibraryUsageDescription: "Ongo accesses your photos to upload your photo ID and progress pictures."
+        NSLocationWhenInUseUsageDescription: "Ongo uses your location to find doctors licensed in your state."
+        UIBackgroundModes:
+          - remote-notification
+        FirebaseAppDelegateProxyEnabled: false
+        UIRequiresFullScreen: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ongocare.weightloss
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseStorage
+      - package: Firebase
+        product: FirebaseMessaging
+      - package: Stripe
+        product: StripePaymentSheet
+
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: "11.0.0"
+  Stripe:
+    url: https://github.com/stripe/stripe-ios
+    from: "23.0.0"

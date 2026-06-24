@@ -1,0 +1,363 @@
+/* availability.module.css
+ * Doctor availability editor — weekly window grid + blocked dates.
+ */
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cardDesc {
+  margin: 6px 0 14px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 540px;
+}
+
+.quickActions {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Slot duration pill group */
+.slotDurationRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: var(--color-primary-soft);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.fieldLabel {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.pillGroup {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: white;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.pill:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.pillActive {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.homeStateRow {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.homeStateField {
+  display: grid;
+  gap: 8px;
+}
+
+.homeStateSelect {
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.homeStateSelect:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.homeStateHint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  max-width: 540px;
+}
+
+.availabilityNote {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+/* Week grid */
+.week {
+  display: grid;
+  /* min(100%, 260px) keeps a column from ever exceeding the container on
+     very narrow phones, so the grid collapses cleanly instead of overflowing. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+
+.day {
+  background: var(--color-surface-alt, #f8f9fa);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.dayHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dayLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.dayCount {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.ranges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px 8px;
+}
+
+.timeInput {
+  font: inherit;
+  font-size: 13.5px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  padding: 4px;
+  width: 100%;
+  outline: none;
+}
+
+.timeInputErr {
+  color: #c4302b;
+}
+
+.dash {
+  font-size: 12px;
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+}
+
+.removeBtn {
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.removeBtn:hover {
+  background: #fee2e2;
+  color: #c4302b;
+}
+
+.addRangeBtn {
+  background: transparent;
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  padding: 8px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.addRangeBtn:hover {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+/* Blocked dates */
+.blockRow {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 12px;
+  flex-wrap: wrap;
+}
+
+.input {
+  font: inherit;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(52, 126, 93, 0.18);
+}
+
+.blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blockChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface-alt, #f8f9fa);
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.blockChip button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  padding: 0 0 0 4px;
+}
+
+.blockChip button:hover {
+  color: #c4302b;
+}
+
+/* Save bar */
+.saveBar {
+  position: sticky;
+  bottom: 16px;
+  margin: 24px 0 0;
+  padding: 12px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  z-index: 5;
+}
+
+.saveOk {
+  font-size: 13px;
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.saveError {
+  font-size: 13px;
+  color: #b45309;
+}
+
+/* Buttons */
+.btnPrimary,
+.btnGhost {
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btnPrimary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btnGhost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.btnGhost:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}

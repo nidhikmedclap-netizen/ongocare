@@ -1,0 +1,21 @@
+.track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-purple, var(--color-primary));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+  /* Subtle glow for premium feel */
+  box-shadow: 0 0 8px rgba(124, 92, 214, 0.4);
+}

@@ -1,0 +1,677 @@
+/* ============================================
+   SECTION — DARK SAGE CANVAS
+   ============================================ */
+.section {
+  width: 97%;
+  background-color: var(--color-primary-dark);
+  padding: 5rem 1.5rem;
+  color: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  margin: 3rem auto 3rem;
+border-radius: 28px;
+}
+
+/* Subtle radial glow for depth */
+.section::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(116, 198, 157, 0.18) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-primary-light);
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+/* ============================================
+   LEFT COLUMN
+   ============================================ */
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--color-surface);
+}
+
+.headingItalic {
+  font-style: italic;  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.subcopy {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  max-width: 480px;
+}
+
+/* ============================================
+   UNIT TOGGLE
+   ============================================ */
+.unitToggle {
+  display: inline-flex;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 4px;
+  width: fit-content;
+}
+
+.unitBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.unitBtnActive {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.field:focus-within {
+  border-color: var(--color-primary-light);
+}
+
+.fieldLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.fieldInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-surface);
+  font-size: 1.5rem;
+  font-weight: 700;
+  width: 100%;  -moz-appearance: textfield;
+}
+
+.fieldInput::-webkit-outer-spin-button,
+.fieldInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ============================================
+   RESULT CARD
+   ============================================ */
+.resultCard {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.resultHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.resultEyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.resultLabel {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-surface);
+}
+
+.cta {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.cta:hover {
+  background-color: #d65a3a;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   CATEGORY LEGEND
+   ============================================ */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.75rem;
+  border-radius: 12px;
+}
+
+.legendItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.5rem 0.25rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.legendItemActive {
+  background-color: rgba(116, 198, 157, 0.15);
+  outline: 1px solid var(--color-primary-light);
+}
+
+.legendLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legendRange {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+/* ============================================
+   DISCLAIMER
+   ============================================ */
+.disclaimer {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #fff;
+  margin: 0;
+  border-left: 2px solid var(--color-accent-soft);
+  padding-left: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ============================================
+   RIGHT COLUMN — GAUGE
+   ============================================ */
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1;
+}
+
+.gaugeSvg {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================
+   TONES — color-coded by BMI category
+   ============================================ */
+.tone_low {
+  color: var(--color-warning);
+}
+
+.tone_ok {
+  color: var(--color-primary-light);
+}
+
+.tone_warn {
+  color: var(--color-warning);
+}
+
+.tone_high {
+  color: var(--color-accent);
+}
+
+/* When applied to result card, color the border */
+.resultCard.tone_low {
+  border-color: rgba(244, 162, 97, 0.5);
+}
+.resultCard.tone_ok {
+  border-color: rgba(116, 198, 157, 0.5);
+}
+.resultCard.tone_warn {
+  border-color: rgba(244, 162, 97, 0.5);
+}
+.resultCard.tone_high {
+  border-color: rgba(231, 111, 81, 0.5);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .right {
+    order: -1;
+  }
+
+  .gauge {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legend {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resultCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta {
+    width: 100%;
+  }
+}
+
+.gaugeReadout {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  pointer-events: none;
+}
+
+.gaugeEyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.1rem;
+}
+
+.gaugeValue {
+  font-size: 3.25rem;
+  font-weight: 800;
+  color: var(--color-surface);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.gaugeCategory {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* ============================================
+   GAUGE ANIMATIONS — RPM-style
+   ============================================ */
+
+/* Pointer rotation — smooth analog-style with overshoot */
+.pointer {
+  /* Cubic-bezier with slight overshoot — feels like a real gauge needle */
+  transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Active arc — smooth dash animation */
+.gaugeArc {
+  transition: stroke-dasharray 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pointer,
+  .gaugeArc {
+    transition: none;
+  }
+}
+
+/* ============================================
+   ELIGIBILITY MODAL
+   ============================================ */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 32, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1000;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalPanel {
+  position: relative;
+  background-color: #fff;
+  color: #1d2330;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 880px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  color: #1d2330;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.modalClose:hover {
+  background-color: #f3f4f6;
+  transform: scale(1.05);
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+  margin-top: 0.5rem;
+}
+
+/* ----- LEFT (gauge card) ----- */
+.modalLeft {
+  background-color: #f7f7fa;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.modalTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1d2330;
+  letter-spacing: -0.01em;
+}
+
+.miniGauge {
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  margin-top: 0.5rem;
+}
+
+.miniGaugeSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.miniGaugeReadout {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  pointer-events: none;
+}
+
+.miniGaugeValue {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1d2330;
+  line-height: 1;
+}
+
+.miniGaugeLabel {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.modalDesc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #4b5563;
+  margin: 0;
+  text-align: left;
+}
+
+/* ----- RIGHT (categories) ----- */
+.modalRight {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.modalCat {
+  /* tone color is set via --bmi-tone-* per modifier */
+  background-color: #f7f7fa;
+  border-radius: 14px;
+  padding: 0.875rem 1.1rem;
+  transition: background-color 0.2s ease;
+}
+
+.modalCatHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d2330;
+}
+
+.modalCatLabel {
+  flex: 1;
+}
+
+.modalCatRange {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d2330;
+}
+
+.modalCatDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Tone dot colors */
+.modalCatDot_low  { background-color: #9b87f5; }
+.modalCatDot_ok   { background-color: #5ec27e; }
+.modalCatDot_warn { background-color: #f5b964; }
+.modalCatDot_high { background-color: #f08a8a; }
+
+/* Active card highlight per tone */
+.modalCatActive.modalCat_low  { background-color: #ece8ff; }
+.modalCatActive.modalCat_ok   { background-color: #e3f5ea; }
+.modalCatActive.modalCat_warn { background-color: #fdf1dc; }
+.modalCatActive.modalCat_high { background-color: #fde6e6; }
+
+.modalCatDesc {
+  margin: 0.625rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #3f475a;
+}
+
+/* Expose tone colors as CSS vars for inline use (mini-gauge dot stroke) */
+.modalCat_low  { --bmi-tone-low:  #9b87f5; }
+.modalCat_ok   { --bmi-tone-ok:   #5ec27e; }
+.modalCat_warn { --bmi-tone-warn: #f5b964; }
+.modalCat_high { --bmi-tone-high: #f08a8a; }
+
+/* Make tone vars available globally inside the panel too */
+.modalPanel {
+  --bmi-tone-low:  #9b87f5;
+  --bmi-tone-ok:   #5ec27e;
+  --bmi-tone-warn: #f5b964;
+  --bmi-tone-high: #f08a8a;
+}
+
+/* ----- Footer disclaimers ----- */
+.modalFooter {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.modalFootnote {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .modalPanel {
+    padding: 1.5rem 1.1rem;
+    border-radius: 16px;
+  }
+
+  .modalGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modalLeft {
+    padding: 1.25rem;
+  }
+
+  .miniGaugeValue {
+    font-size: 2.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modalBackdrop,
+  .modalPanel {
+    animation: none;
+  }
+}

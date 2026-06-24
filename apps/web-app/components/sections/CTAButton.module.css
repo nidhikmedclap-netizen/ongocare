@@ -1,0 +1,656 @@
+/* ============================================
+   SECTION
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0 0 3rem;
+}
+
+.headingAccent {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ============================================
+   CARD
+   ============================================ */
+.card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  overflow: visible;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+/* ============================================
+   COMPARE WRAP — holds the two stacked images
+   ============================================ */
+.compareWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--color-surface-alt);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.compareWrap_active {
+  box-shadow: 0 0 0 3px var(--color-primary), 0 12px 32px rgba(52, 126, 93, 0.25);
+}
+
+/* ============================================
+   STACKED IMAGES — same size and position
+   ============================================ */
+.compareImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  pointer-events: none;
+  background-color: var(--color-surface-alt);
+}
+
+.beforeImage {
+  z-index: 1;
+}
+
+.afterImage {
+  z-index: 2;
+  /* Opacity controlled inline by slider */
+  will-change: opacity;
+}
+
+/* ============================================
+   LABELS — top corners
+   ============================================ */
+.labelBefore,
+.labelAfter {
+  position: absolute;
+  top: 1rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-surface);
+  background-color: rgba(0, 0, 0, 0.65);
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 5;
+}
+
+.labelBefore {
+  left: 1rem;
+}
+
+.labelAfter {
+  right: 1rem;
+  background-color: var(--color-primary);
+}
+
+.labelBright {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.labelDim {
+  opacity: 0.45;
+  transform: scale(0.92);
+}
+
+/* ============================================
+   SLIDER TRACK — at bottom of image
+   ============================================ */
+.sliderTrack {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  cursor: pointer;
+  z-index: 4;
+  touch-action: none;
+}
+
+.sliderFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.6),
+    var(--color-primary)
+  );
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: width;
+}
+
+.trackLabelLeft,
+.trackLabelRight {
+  position: absolute;
+  top: 1.5rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-surface);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.trackLabelLeft {
+  left: 0;
+}
+
+.trackLabelRight {
+  right: 0;
+}
+
+/* ============================================
+   HANDLE — sits on track
+   ============================================ */
+.handle {
+  position: absolute;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: grab;
+  pointer-events: auto;
+  box-shadow:
+    0 0 0 4px var(--color-surface),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  outline: none;
+  transform: translate(-50%, -50%);
+  will-change: left;
+}
+
+.handle:hover {
+  background: var(--color-primary-dark);
+}
+
+.handle:active,
+.handleActive {
+  cursor: grabbing;
+  background: var(--color-primary-dark);
+  box-shadow:
+    0 0 0 4px var(--color-surface),
+    0 0 0 8px rgba(52, 126, 93, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.handle:focus-visible {
+  box-shadow:
+    0 0 0 4px var(--color-surface),
+    0 0 0 6px var(--color-primary),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.handlePulsing::before,
+.handlePulsing::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  animation: ringPulse 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.handlePulsing::after {
+  animation-delay: 1s;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.handleArrow {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.handleGrip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 1px;
+}
+
+.gripDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================
+   "DRAG ME" TOOLTIP — appears above the handle
+   ============================================ */
+.dragTooltip {
+  position: absolute;
+  bottom: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: var(--color-surface);
+  padding: 0.6rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 6;
+  pointer-events: none;
+  animation: tooltipBob 1.6s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.dragTooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--color-text);
+}
+
+.dragTooltipArrow {
+  font-size: 0.95rem;
+  animation: arrowSlide 1.4s ease-in-out infinite;
+}
+
+@keyframes tooltipBob {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+@keyframes arrowSlide {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* ============================================
+   POSITION INDICATOR
+   ============================================ */
+.positionIndicator {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  color: var(--color-surface);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.positionLabel {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   CARD CONTENT
+   ============================================ */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 2.5rem;
+}
+
+.cardTitle {
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cardText {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ============================================
+   STATS BLOCK
+   ============================================ */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--color-primary-soft);
+  border-radius: 14px;
+  margin: 0.5rem 0;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background-color: rgba(52, 126, 93, 0.2);
+}
+
+/* ============================================
+   HINT
+   ============================================ */
+.cardHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  margin: 0.25rem 0 0;
+}
+
+.hintDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  animation: hintDotFade 2s ease-in-out infinite;
+}
+
+.hintDot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(52, 126, 93, 0.5);
+  transform: scale(1);
+  will-change: transform, opacity;
+  animation: hintPulseRing 2s ease-in-out infinite;
+}
+
+@keyframes hintDotFade {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+
+@keyframes hintPulseRing {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%      { transform: scale(2.5);  opacity: 0; }
+}
+
+/* ============================================
+   ROTATING BADGE
+   ============================================ */
+.rotatingBadge {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 130px;
+  height: 130px;
+  z-index: 2;
+}
+
+.rotatingSvg {
+  width: 100%;
+  height: 100%;
+  animation: rotate 18s linear infinite;
+}
+
+.rotatingText {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.badgeCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 6px var(--color-bg), 0 0 0 7px var(--color-accent-soft);
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotatingBadge:hover .rotatingSvg {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footerText {
+  font-size: 1rem;
+  color: var(--color-text);
+  font-weight: 500;
+  margin: 0;
+}
+
+.footerLink {
+  font-size: 1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.15s ease;
+  display: inline-block;
+}
+
+.footerLink:hover {
+  color: var(--color-primary-dark);
+  transform: translateX(2px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .compareWrap {
+    min-height: 500px;
+  }
+
+  .cardContent {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .rotatingBadge {
+    top: -30px;
+    right: -10px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .stats {
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .statValue {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    margin-bottom: 2rem;
+  }
+
+  .compareWrap {
+    min-height: 420px;
+  }
+
+  .rotatingBadge {
+    width: 90px;
+    height: 90px;
+    top: -25px;
+    right: -10px;
+  }
+
+  .rotatingText {
+    font-size: 13px;
+  }
+
+  .handle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .labelBefore,
+  .labelAfter {
+    font-size: 0.6rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .statDivider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .dragTooltip {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .sliderTrack {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotatingSvg,
+  .hintDot,
+  .dragTooltip,
+  .handlePulsing::before,
+  .handlePulsing::after,
+  .dragTooltipArrow {
+    animation: none;
+  }
+}

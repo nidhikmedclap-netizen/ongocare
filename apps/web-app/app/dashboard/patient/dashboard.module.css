@@ -1,0 +1,1203 @@
+/* ============================================
+   PATIENT DASHBOARD — full styles
+   Tokens come from app/globals.css (--color-primary,
+   --color-bg, etc.) so changing the brand palette
+   updates the dashboard automatically.
+   ============================================ */
+
+/* ---------- Shell ---------- */
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 264px 1fr;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* ---------- Sidebar (desktop) ---------- */
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 16px;
+  gap: 4px;
+  z-index: 30;
+}
+
+/* Mobile topbar that replaces the sidebar */
+.mobileBar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 30; /* below backdrop (45) and drawer (50) when drawer is open */
+  background: rgba(255, 251, 245, 0.9);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 16px;
+  min-height: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.mobileBar > * {
+  min-height: 0;
+  min-width: 0;
+}
+
+.mobileBarLabel {
+  font-weight: 600;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+  .mobileBar {
+    display: flex;
+    grid-row: 1;
+    flex: 0 0 56px;
+    max-height: 56px;
+    overflow: hidden;
+  }
+
+  .main {
+    grid-row: 2;
+  }
+  /* When the drawer flag is on, render the sidebar as an overlay.
+     z-index ordering on mobile:
+       backdrop    45  (over mobile bar @40)
+       sidebarOpen 50  (over everything — fully opaque drawer)
+  */
+  .sidebarOpen {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(320px, 88vw);
+    height: 100dvh; /* dvh handles iOS Safari URL-bar shifts */
+    border-right: 1px solid var(--color-border);
+    box-shadow: 16px 0 48px rgba(0, 0, 0, 0.18);
+    animation: drawerIn 0.22s ease-out;
+    z-index: 50;
+    overflow-y: auto;
+    padding-top: 56px; /* leaves room for the absolute-positioned close button */
+  }
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 45;
+    animation: fadeIn 0.22s ease-out;
+  }
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 20px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 14px;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.brandMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light) 0%,
+    var(--color-primary) 55%,
+    var(--color-primary-dark) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  box-shadow: 0 4px 12px rgba(52, 126, 93, 0.25);
+}
+
+.brandText {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.brandTextEm {
+  color: var(--color-primary);
+  font-style: italic;
+  font-weight: 800;
+}
+
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 132px;
+  height: 38px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brandLogoCompact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  max-width: 148px;
+  height: 38px;
+  max-height: 38px;
+  min-height: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.brandLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.brandLogoCompact .brandLogoImg {
+  width: auto !important;
+  height: 38px !important;
+  max-width: 148px;
+  object-position: right center;
+}
+
+.mobileBrandLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 38px;
+  max-height: 38px;
+  min-height: 0;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+  position: relative;
+}
+
+.navItem:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.navItemActive {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.navItemActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--color-primary);
+}
+
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.userFooter {
+  border-top: 1px solid var(--color-border);
+  padding: 14px 12px 0;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light),
+    var(--color-primary)
+  );
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userEmail {
+  font-size: 11px;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.signOutBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: background 0.15s ease, color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.signOutBtn:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.iconBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 40px;
+  min-height: 40px;
+  cursor: pointer;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.iconBtn:hover { background: var(--color-surface-alt); }
+
+.iconBtn svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Drawer close button — visible only when the sidebar is rendered as an
+   overlay drawer (≤1024px). Sits absolutely in the top-right of the drawer. */
+.drawerCloseBtn {
+  display: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  z-index: 2;
+  transition: background 0.15s ease;
+}
+
+.drawerCloseBtn:hover {
+  background: var(--color-border);
+}
+
+@media (max-width: 1024px) {
+  .drawerCloseBtn {
+    display: inline-flex;
+  }
+}
+
+/* ---------- Main ---------- */
+.main {
+  padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 48px);
+  /* max-width: 1180px; */
+  width: 100%;
+  /* As the grid's 1fr column, .main defaults to min-width:auto, which lets a
+     wide child (e.g. an admin data table) stretch the whole column past the
+     viewport — the page then clips it with no way to scroll. min-width:0 lets
+     the column shrink to the viewport so inner scroll containers (.tableScroll)
+     handle their own overflow instead. */
+  min-width: 0;
+}
+
+/* ---------- Hero banner ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-soft) 0%,
+    var(--color-bg) 65%
+  );
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: clamp(20px, 3vw, 32px);
+  margin-bottom: 20px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-primary-light) 0%,
+    transparent 70%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -40px;
+  bottom: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-accent-soft) 0%,
+    transparent 70%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.heroText {
+  min-width: 0;
+  flex: 1 1 280px;
+}
+
+/* Plain uppercase label used in sub-page headers (no background) */
+.kicker {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+/* Pill-style kicker used only inside the hero (against the gradient bg) */
+.heroKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.heroTitle {
+  margin: 0 0 6px;
+  font-size: clamp(1.7rem, 3.2vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.heroSubtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  max-width: 520px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Page header (sub-pages) ---------- */
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.pageSubtitle {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: clamp(18px, 2.5vw, 24px);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cardHover:hover {
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.07);
+  transform: translateY(-1px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cardEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ---------- Stat tile (overview) ---------- */
+.statRow {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 20px;
+}
+
+.stat {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stat:hover {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.statIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+
+.statIconGreen   { background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary)); }
+.statIconCoral   { background: linear-gradient(135deg, #ffaf94, var(--color-accent)); }
+.statIconSlate   { background: linear-gradient(135deg, #94a3b8, #475569); }
+.statIconAmber   { background: linear-gradient(135deg, #fbd38d, #f4a261); }
+
+.statBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: var(--color-text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+
+.statValue {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.statSub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Two-column layout (cards) ---------- */
+.colSplit {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 2fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .colSplit { grid-template-columns: 1fr; }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- Info rows ---------- */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  font-size: 14.5px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.row:last-child { border-bottom: none; }
+
+.rowLabel {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.rowValue {
+  color: var(--color-text);
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+  max-width: 60%;
+}
+
+.pastApptBlock {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pastApptBlock:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.cancelRemarkPatient {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.cancelRemarkPatientLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #991b1b;
+  margin-bottom: 6px;
+}
+
+.cancelRemarkPatientText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+.sessionNotesPatient {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.sessionNotesPatientLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #166534;
+  margin-bottom: 6px;
+}
+
+.sessionNotesPatientText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+/* ---------- Pills ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.pillOk      { background: var(--color-primary-soft); color: var(--color-primary-dark); }
+.pillPending { background: var(--color-accent-soft);  color: var(--color-accent); }
+.pillNeutral { background: var(--color-surface-alt);  color: var(--color-text-muted); }
+.pillWarn    { background: #fff5d6; color: #8a6b00; }
+
+/* ---------- CTAs ---------- */
+.ctaPrimary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(52, 126, 93, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(52, 126, 93, 0.32);
+}
+
+.ctaSecondary {
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  border: 1px solid var(--color-primary);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.ctaSecondary:hover { background: var(--color-primary-soft); }
+
+/* ---------- Progress bar (onboarding completion) ---------- */
+.progressWrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progressTrack {
+  height: 8px;
+  background: var(--color-surface-alt);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-light) 0%,
+    var(--color-primary) 100%
+  );
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- BMI gauge ---------- */
+.bmiGauge {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bmiBar {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #93c5fd 0%,
+    #93c5fd 18.5%,
+    #86efac 18.5%,
+    #86efac 50%,
+    #fcd34d 50%,
+    #fcd34d 75%,
+    #fca5a5 75%,
+    #fca5a5 100%
+  );
+  overflow: visible;
+}
+
+.bmiMarker {
+  position: absolute;
+  top: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 3px solid var(--color-text);
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: left 0.4s ease;
+}
+
+.bmiLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--color-text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* ---------- Empty state ---------- */
+.empty {
+  text-align: center;
+  padding: 36px 16px;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.emptyIllus,
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-surface-alt));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: var(--color-primary-dark);
+  font-size: 26px;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.emptyBody {
+  font-size: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* ---------- Payment history table (Plan & billing page) ---------- */
+.historyTable {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.historyRow {
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr 1.5fr 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.historyRow:last-child {
+  border-bottom: none;
+}
+
+.historyRow > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Second column often holds multi-line content (patient name + email) */
+.historyRow > span:nth-child(2) {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.35;
+}
+
+.historyHead {
+  background: var(--color-surface-alt);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--color-text-soft);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .historyRow {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+  }
+  .historyRow > span:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+  .historyRow > span:nth-child(3),
+  .historyRow > span:nth-child(4) {
+    text-align: left !important;
+  }
+  .historyHead {
+    display: none;
+  }
+  /* Label each value now that the header row is hidden */
+  .historyRow:not(.historyHead) > span[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-soft);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .historyRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Credit card visual (Plan & billing page) ---------- */
+.creditCard {
+  position: relative;
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark) 0%,
+    var(--color-primary) 60%,
+    var(--color-primary-light) 100%
+  );
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.creditCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.18) 0, transparent 35%),
+    radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.18) 0, transparent 45%);
+  pointer-events: none;
+}
+
+.creditCardBrand {
+  position: relative;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.creditCardNumber {
+  position: relative;
+  font-size: 20px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  margin: 14px 0 12px;
+}
+
+.creditCardMeta {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.creditCardLabel {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.creditCardValue {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Tag list ---------- */
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  border: 1px solid var(--color-border);
+  font-weight: 500;
+}
+
+.tagPrimary {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  border-color: transparent;
+}
+
+/* ---------- Misc ---------- */
+.loading {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+.dimNote {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.linkInline {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* ---------- Document slot ---------- */
+.docSlot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  background: var(--color-bg);
+}
+
+.docSlotIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-surface-alt);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* Tighter spacing on phones */
+@media (max-width: 768px) {
+  .main {
+    padding: 18px max(14px, env(safe-area-inset-left)) 24px max(14px, env(safe-area-inset-right));
+  }
+  .statRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .heroActions {
+    width: 100%;
+  }
+  .heroActions .ctaPrimary,
+  .heroActions .ctaSecondary {
+    flex: 1 1 auto;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .main {
+    padding: 16px max(12px, env(safe-area-inset-left)) 20px max(12px, env(safe-area-inset-right));
+  }
+  .statRow {
+    grid-template-columns: 1fr;
+  }
+  .pageHeader { gap: 12px; }
+  .row { font-size: 14px; padding: 9px 0; }
+  .rowValue { max-width: 55%; }
+  .stat { padding: 14px; gap: 12px; }
+  .statIcon { width: 38px; height: 38px; }
+  .statValue { font-size: 19px; }
+  .heroTitle { font-size: 1.5rem; }
+}

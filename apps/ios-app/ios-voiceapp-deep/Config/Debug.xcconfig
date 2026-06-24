@@ -1,0 +1,5 @@
+// Debug uses the same VoiceTokenURL as Shared by default (cloud token server).
+// Optional: add LocalDev.xcconfig (see LocalDev.xcconfig.example) to clear the URL and use Simulator + local npm only.
+
+#include "Shared.xcconfig"
+#include? "LocalDev.xcconfig"

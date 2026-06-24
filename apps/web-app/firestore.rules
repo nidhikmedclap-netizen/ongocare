@@ -1,0 +1,46 @@
+rules_version = '2';
+
+// Firestore Security Rules for the ongo-dev project.
+//
+// Deploy by copy-pasting the entire contents of this file into:
+//   Firebase Console → Firestore Database → Rules → (paste) → Publish
+//
+// Or, once Firebase CLI is set up:
+//   firebase deploy --only firestore:rules
+//
+// Design intent:
+//   - All WRITES go through the Admin SDK in our API routes. Admin SDK bypasses
+//     these rules entirely, so the client SDK is never allowed to write —
+//     this gives us a single, server-controlled choke point for validation,
+//     field whitelisting, and audit logging.
+//   - READS for a user's own profile document are allowed directly from the
+//     client SDK once authenticated. This enables the dashboard to display
+//     the signed-in user's data without an extra API round-trip.
+//   - Everything else is denied by default.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // users/{uid} — profile + onboarding snapshot for a single end user.
+    //
+    // Multi-tenant note: every user doc carries an immutable `orgSlug`
+    // field set at creation. Tenant isolation for list/count queries
+    // happens entirely in the API layer (via lib/api scopedOrgSlug +
+    // service-layer where(orgSlug==…) filters); the client SDK only ever
+    // reads ONE doc — its own — so cross-tenant leakage through these
+    // rules is impossible by construction.
+    match /users/{userId} {
+      // Client may read its OWN doc only.
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // No client writes. All mutations happen server-side via Admin SDK,
+      // which is unaffected by these rules.
+      allow write: if false;
+    }
+
+    // Default deny — anything not explicitly allowed above is forbidden.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

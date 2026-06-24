@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weightloss Chat Widget Test</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+        line-height: 1.5;
+        max-width: 720px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weightloss widget test</h1>
+    <p>Temporary page for Phase 5.1 verification on <code>communications.ongocare.com</code>.</p>
+    <script>
+      window.OngoChat = window.OngoChat || { q: [] };
+      window.OngoChat.init = function (config) {
+        window.OngoChat.q.push(config);
+      };
+    </script>
+    <script src="./ongocare-chat.js" async></script>
+    <script>
+      window.OngoChat.init({ siteKey: "weightloss-main" });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1002 @@
+/* ============================================
+   HEADER — fixed glass top bar
+   ============================================ */
+.header,
+.headerScrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  will-change: background-color, box-shadow;
+  background-color: rgba(255, 251, 245, 0.55);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid rgba(229, 224, 216, 0);
+  transition: background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.header {
+  box-shadow: none;
+}
+
+.headerScrolled {
+  background-color: rgba(255, 251, 245, 0.78);
+  border-bottom-color: rgba(229, 224, 216, 0.55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Spacer keeps page content from sliding under the fixed header */
+.spacer {
+  height: 80px;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .spacer {
+    height: 70px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ============================================
+   LOGO (header)
+   ============================================ */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 72px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.logoMark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================
+   MIDDLE NAV — page links (desktop only)
+   ============================================ */
+.midNav {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.midNavLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.midNavLink:hover {
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-soft);
+}
+
+/* Hoverable item wrapper — holds an anchor + its dropdown. */
+.midNavItem {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Keeps :hover active while the cursor crosses the gap to the panel */
+.midNavItem::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+}
+
+.midNavChevron {
+  font-size: 0.65rem;
+  margin-left: 0.3rem;
+  opacity: 0.65;
+  transition: transform 0.18s ease;
+}
+
+.midNavItem:hover .midNavChevron,
+.midNavItem:focus-within .midNavChevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel. Stays in DOM, fades in on hover/focus. */
+.midNavDropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 220px;
+  padding: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+  z-index: 60;
+}
+
+/* Invisible bridge — cursor can cross the gap without closing the menu */
+.midNavDropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 12px;
+}
+
+.midNavItem:hover .midNavDropdown,
+.midNavItem:focus-within .midNavDropdown {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+}
+
+.midNavDropdownLink {
+  display: block;
+  padding: 0.55rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.midNavDropdownLink:hover,
+.midNavDropdownLink:focus-visible {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+@media (min-width: 768px) {
+  .midNav {
+    display: inline-flex;
+  }
+}
+
+/* ============================================
+   HEADER ACTIONS — theme switcher + menu toggle
+   ============================================ */
+.headerActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.loginLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, transform 0.15s ease;
+}
+
+.loginLink:hover,
+.loginLink:focus-visible {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   HAMBURGER TOGGLE
+   ============================================ */
+.menuToggle {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  transition: background-color 0.2s ease, transform 0.15s ease,
+    border-color 0.2s ease;
+}
+
+.menuToggle:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.menuToggle:hover .hamburgerLine {
+  background-color: var(--color-surface);
+}
+
+.hamburgerLine {
+  width: 20px;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+/* ============================================
+   BACKDROP — sits below the takeover drawer
+   ============================================ */
+.backdrop,
+.backdropOpen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.55);
+  transition: opacity 0.3s ease;
+}
+
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdropOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================
+   DRAWER — FULL-SCREEN TAKEOVER
+   ============================================ */
+.drawer,
+.drawerOpen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 300;
+  background-color: var(--color-primary-dark);
+  color: #fffbf5;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.35s ease;
+  will-change: transform;
+}
+
+/* Subtle dotted pattern + soft radial glow for depth */
+.drawer::before,
+.drawerOpen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(
+      ellipse at 80% 0%,
+      var(--color-primary) 0%,
+      transparent 55%
+    );
+  background-size: 28px 28px, 100% 100%;
+  background-position: 0 0, center;
+  opacity: 0.6;
+}
+
+.drawer {
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
+}
+
+.drawerOpen {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.drawerInner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+}
+
+/* ============================================
+   DRAWER TOP — logo + close pill
+   ============================================ */
+.drawerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.drawerLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #fffbf5;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.drawerLogoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.drawerLogoMark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.drawerLogoText {
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: none;
+  padding: 0.55rem 0.65rem 0.55rem 1.1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.closeButton:hover {
+  background-color: #fffbf5;
+  transform: translateY(-1px);
+}
+
+.closeLabel {
+  line-height: 1;
+}
+
+.closeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ============================================
+   DRAWER BODY — two-column grid
+   ============================================ */
+.drawerBody {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 3rem;
+  padding-top: 1rem;
+}
+
+/* ============================================
+   EYEBROW — "— NAVIGATE", "— GET IN TOUCH" etc.
+   ============================================ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary-light);
+  margin-bottom: 1.25rem;
+}
+
+.eyebrowDash {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background-color: var(--color-primary-light);
+  border-radius: 9999px;
+}
+
+/* ============================================
+   NAV LIST — big bold typography
+   ============================================ */
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   DRAWER — page links (About / Contact)
+   ============================================ */
+.drawerPageList {
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drawerPageLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.1rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #fffbf5;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.drawerPageLink:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-color: transparent;
+  transform: translateX(4px);
+}
+
+.drawerPageArrow {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.drawerPageSubList {
+  list-style: none;
+  margin: 0.35rem 0 0.5rem 1rem;
+  padding: 0 0 0 0.75rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.drawerPageSubLink {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  color: rgba(255, 251, 245, 0.78);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.drawerPageSubLink:hover {
+  color: var(--color-primary-light);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.eyebrowSpaced {
+  margin-top: 1.5rem;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.navListItem {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navListItem:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navItem,
+.navItemActive {
+  --i: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: #fffbf5;
+  transition: color 0.2s ease, transform 0.2s ease, padding 0.2s ease;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: navItemIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.06s * var(--i) + 0.18s);
+}
+
+.navItem:hover {
+  color: var(--color-primary-light);
+  padding-left: 0.65rem;
+}
+
+.navItem:hover .navArrow {
+  transform: translate(4px, -4px);
+  opacity: 1;
+}
+
+.navItemActive {
+  color: var(--color-primary-light);
+}
+
+.navNumber {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-light);
+  font-variant-numeric: tabular-nums;
+  align-self: start;
+  padding-top: 0.65rem;
+  min-width: 2ch;
+}
+
+.navLabel {
+  font-size: clamp(1.6rem, 3.5vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.navArrow {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  opacity: 0.5;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+@keyframes navItemIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   INFO PANEL — right column
+   ============================================ */
+.drawerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding-top: 0.5rem;
+}
+
+.statusPill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fffbf5;
+}
+
+.statusDot {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #4ade80;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.18);
+}
+
+.statusDot::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background-color: rgba(74, 222, 128, 0.18);
+  transform: scale(1);
+  will-change: transform, opacity;
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0; }
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoBlock .eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+.infoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0;
+  color: #fffbf5;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.infoLink:hover {
+  color: var(--color-primary-light);
+  transform: translateX(2px);
+}
+
+.infoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: #fffbf5;
+  font-size: 0.85rem;
+}
+
+.socialRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fffbf5;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.socialBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* Always-on brand colors so users instantly recognize each platform */
+.socialInstagram {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.socialInstagram:hover {
+  box-shadow: 0 6px 16px rgba(220, 39, 67, 0.45);
+}
+
+.socialYoutube {
+  background-color: #ff0000;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.socialYoutube:hover {
+  background-color: #cc0000;
+  box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+}
+
+.socialYelp {
+  background-color: #d32323;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.socialYelp:hover {
+  background-color: #af1d1d;
+  box-shadow: 0 6px 16px rgba(211, 35, 35, 0.4);
+}
+
+.infoFooter {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.85rem;
+  color: rgba(255, 251, 245, 0.7);
+}
+
+.footerLine {
+  margin: 0;
+  font-weight: 600;
+}
+
+.footerTagline {
+  margin: 0.2rem 0 0;
+  font-style: italic;
+  color: rgba(255, 251, 245, 0.5);
+}
+
+/* ============================================
+   DRAWER CTA — bottom Book Now button
+   ============================================ */
+.drawerCta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: none;
+  padding: 1rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.drawerCta:hover {
+  background-color: #fffbf5;
+  transform: translateY(-1px);
+}
+
+.drawerActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.drawerLogin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 1rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fffbf5;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.drawerLogin:hover,
+.drawerLogin:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .drawerInner {
+    padding: 1.25rem 1.25rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .drawerBody {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 0.5rem;
+  }
+
+  .drawerInfo {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+  }
+
+  .infoFooter {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.875rem 1rem;
+  }
+
+  .logoText {
+    font-size: 1rem;
+  }
+
+  .logoMark {
+    width: 56px;
+    height: 56px;
+    font-size: 0.9rem;
+  }
+
+  .menuToggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .loginLink {
+    min-height: 38px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .headerActions {
+    gap: 0.5rem;
+  }
+
+  .drawerInner {
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  .drawerLogoText {
+    font-size: 1rem;
+  }
+
+  .closeButton {
+    padding: 0.45rem 0.55rem 0.45rem 0.95rem;
+    font-size: 0.8rem;
+  }
+
+  .navItem,
+  .navItemActive {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.85rem;
+    padding: 0.85rem 0.15rem;
+  }
+
+  .navLabel {
+    font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+
+  .navArrow {
+    font-size: 1.15rem;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .headerScrolled,
+  .backdrop,
+  .backdropOpen,
+  .drawer,
+  .drawerOpen,
+  .navItem,
+  .navItemActive,
+  .closeButton,
+  .menuToggle,
+  .infoLink,
+  .socialBtn,
+  .drawerCta,
+  .drawerLogin,
+  .loginLink {
+    transition: none;
+    animation: none;
+  }
+
+  .navItem,
+  .navItemActive {
+    opacity: 1;
+    transform: none;
+  }
+
+  .statusDot {
+    animation: none;
+  }
+}

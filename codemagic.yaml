@@ -1,0 +1,7 @@
+workflows:
+  placeholder-workflow:
+    name: Placeholder Workflow
+    max_build_duration: 60
+    scripts:
+      - name: Placeholder
+        script: echo "Configure Codemagic workflows per app under apps/"

@@ -1,0 +1,322 @@
+/* detail.module.css
+ * Patient detail page — header card, appointment list, raw onboarding dump.
+ */
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.15s ease;
+}
+
+.backLink:hover { color: var(--color-primary); }
+
+/* ── Header card ── */
+.headerCard {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-soft) 0%,
+    var(--color-surface) 60%
+  );
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 28px);
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.headerCard::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-primary-light) 0%,
+    transparent 70%
+  );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.headerInner {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.headerAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light),
+    var(--color-primary-dark)
+  );
+  color: white;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 3px solid white;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+}
+
+.headerInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.headerName {
+  margin: 0 0 4px;
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.headerMeta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.contactRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.contactChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: default;
+  user-select: text;
+}
+
+a.contactChip {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a.contactChip:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary-light, #74c69d);
+}
+
+.rowLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.rowLink:hover {
+  text-decoration: underline;
+}
+
+.headerStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+@media (max-width: 720px) {
+  .headerStatus {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+/* ── Appointment list ── */
+.apptList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.appt {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  background: var(--color-surface-alt, #f8f9fa);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+@media (max-width: 560px) {
+  .appt { grid-template-columns: 1fr; gap: 8px; }
+}
+
+.apptWhen {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.apptDate {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.apptTime {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.apptBody {
+  min-width: 0;
+}
+
+.apptType {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.apptNotes {
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.apptCancelLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #991b1b;
+  margin-bottom: 4px;
+}
+
+.apptCancelRemark {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #991b1b;
+  white-space: pre-wrap;
+}
+
+.apptNotesEmpty {
+  font-size: 12px;
+  color: var(--color-text-soft);
+  font-style: italic;
+}
+
+/* ── Raw dump accordion ── */
+.rawDump {
+  margin-top: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+
+.rawDump summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  user-select: none;
+  list-style: none;
+  outline: none;
+}
+
+.rawDump summary::-webkit-details-marker {
+  display: none;
+}
+
+.rawDump summary::before {
+  content: "▸ ";
+  font-size: 11px;
+  color: var(--color-primary);
+}
+
+.rawDump[open] summary::before {
+  content: "▾ ";
+}
+
+.rawDump[open] summary {
+  margin-bottom: 12px;
+}
+
+.rawTable {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+
+.rawRow {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 1.8fr;
+  gap: 8px 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: start;
+}
+
+.rawRow:first-child {
+  padding-top: 4px;
+}
+
+.rawRow:last-child {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 560px) {
+  .rawRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 10px 0;
+  }
+}
+
+.rawKey {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.rawVal {
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 13px;
+  line-height: 1.5;
+}

@@ -1,0 +1,237 @@
+/* ============================================
+   SECTION
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 5rem 0;
+  overflow: hidden;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.headingAccent {
+  font-style: italic;  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.subcopy {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 580px;
+}
+
+/* ============================================
+   SCROLLING ROWS
+   ============================================ */
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.rowWrap {
+  width: 100%;
+  overflow: hidden;
+  /* Soft fade on left/right edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
+}
+
+.rowTrack {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  padding: 0.5rem 0;
+}
+
+/* Top row scrolls right-to-left */
+.scrollLeft {
+  animation: scrollLeft 50s linear infinite;
+}
+
+/* Bottom row scrolls left-to-right */
+.scrollRight {
+  animation: scrollRight 50s linear infinite;
+}
+
+@keyframes scrollLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Pause on hover */
+.rows:hover .rowTrack {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   TEXT CARD
+   ============================================ */
+.textCard {
+  flex-shrink: 0;
+  width: 380px;
+  background-color: var(--color-primary-soft);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cardName {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star {
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cardQuote {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ============================================
+   IMAGE CARD
+   ============================================ */
+.imageCard {
+  flex-shrink: 0;
+  width: 320px;
+  min-height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--color-primary-soft);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 220px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .textCard {
+    width: 300px;
+    padding: 1.25rem;
+  }
+
+  .imageCard {
+    width: 240px;
+    min-height: 180px;
+  }
+
+  .cardImage {
+    min-height: 180px;
+  }
+
+  .scrollLeft,
+  .scrollRight {
+    animation-duration: 40s;
+  }
+}
+
+@media (max-width: 480px) {
+  .textCard {
+    width: 270px;
+  }
+
+  .cardQuote {
+    font-size: 0.85rem;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scrollLeft,
+  .scrollRight {
+    animation: none;
+  }
+}

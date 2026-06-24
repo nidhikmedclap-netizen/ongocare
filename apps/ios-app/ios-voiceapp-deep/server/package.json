@@ -1,0 +1,16 @@
+{
+  "name": "twilio-call-app-token-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node token-server.mjs",
+    "tunnel": "npx --yes localtunnel@2.0.2 --port 3001",
+    "verify-env": "node verify-env.mjs .env",
+    "verify-env:production": "node verify-env.mjs .env --production"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "twilio": "^5.4.0"
+  }
+}

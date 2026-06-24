@@ -1,0 +1,381 @@
+/* ============================================
+   SECTION — OCEAN GRADIENT CANVAS
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 3rem 1.5rem;
+}
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Stack the second image directly on top of the first */
+.heroImageAfter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.heroImageBefore {
+  opacity: 1;
+}
+
+/* On hover of the whole section, dissolve between images */
+.container:hover .heroImageBefore {
+  opacity: 0;
+}
+
+.container:hover .heroImageAfter {
+  opacity: 1;
+}
+/* .container:hover {
+  background: linear-gradient(135deg, 
+#5fb3d4 0%, 
+#4a9bc4 40%, 
+#3782b1 100%);
+} */
+.container {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 560px;
+
+  /* base gradient */
+ background: linear-gradient(135deg, #5fb3d4 0%, #4a9bc4 40%, #3782b1 100%);
+}
+
+/* overlay gradient */
+
+
+/* hover effect */
+.container:hover::before {
+  opacity: 1;
+}
+.loseweight_inner {
+max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+/* Subtle vignette for depth */
+/* .container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+} */
+
+/* ============================================
+   LEFT — CONTENT
+   ============================================ */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 4rem 3rem;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-surface);
+  margin: 0;
+}
+
+.headingAccent {
+  font-style: italic;  color: var(--color-surface);
+  font-weight: 500;
+}
+
+.subcopy {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  max-width: 480px;
+}
+
+/* ============================================
+   BENEFIT LIST — glassmorphic container
+   ============================================ */
+.benefitList {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-surface);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.benefitItem:last-child {
+  border-bottom: none;
+}
+
+.benefitIcon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+}
+
+.benefitText {
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* ============================================
+   PRIMARY CTA — white pill on dark canvas
+   ============================================ */
+.primaryBtn {
+  align-self: flex-start;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.95rem 2.25rem;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0.75rem 0 0;
+  max-width: 480px;
+  font-style: italic;
+}
+
+/* ============================================
+   RIGHT — HERO IMAGE
+   ============================================ */
+.visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  /* Image blends with the gradient — no hard edge */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 100%
+  );
+}
+
+/* ============================================
+   FLOATING WEIGHT CHIP
+   ============================================ */
+.weightChip {
+  position: absolute;
+  top: 45%;
+  left: 8%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chipHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chipLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+.chipValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+.chipArrow {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.chipChart {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+    min-height: auto;
+  }
+
+  .content {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+
+  .visual {
+    min-height: 380px;
+  }
+
+  .heroImage {
+    /* Drop the side mask on mobile — image is its own row */
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .weightChip {
+    top: auto;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    transform: none;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .primaryBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .weightChip {
+    left: 1rem;
+    right: 1rem;
+    min-width: auto;
+  }
+}
+
+/* ============================================
+   BACKGROUND CURVE — descends on container hover
+   ============================================ */
+.bgCurve {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  /* On hover, the curve translates down to suggest weight loss */
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bgCurve img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.container:hover .bgCurve {
+  transform: translateY(100px);
+}
+
+
+/* Make sure inner grid sits ABOVE the curve */
+.loseweight_inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .bgCurve {
+    transition: none;
+  }
+  .container:hover .bgCurve {
+    transform: none;
+  }
+}

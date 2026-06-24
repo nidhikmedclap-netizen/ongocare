@@ -1,0 +1,327 @@
+/* ============================================
+   SECTION
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ============================================
+   LEFT COLUMN — copy + contact
+   ============================================ */
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.headingAccent {
+  font-style: italic;  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.subcopy {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 440px;
+}
+
+/* ============================================
+   CONTACT CARD
+   ============================================ */
+.contactCard {
+  margin-top: 1rem;
+  background-color: var(--color-primary-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 420px;
+}
+
+.contactBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-surface);
+  color: var(--color-primary-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  align-self: flex-start;
+}
+
+.contactDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.contactTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.contactText {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.contactButton {
+  align-self: flex-start;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;}
+
+.contactButton:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RIGHT COLUMN — ACCORDION
+   ============================================ */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ============================================
+   ACCORDION ITEM
+   ============================================ */
+.item {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.item:hover {
+  border-color: var(--color-primary-light);
+}
+
+.itemOpen {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(52, 126, 93, 0.08);
+}
+
+/* Trigger button */
+.itemTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;  color: inherit;
+}
+
+.itemQuestion {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.activeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   ICON — animated plus/minus
+   ============================================ */
+.itemIcon {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-primary-soft);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.25s ease;
+}
+
+.itemOpen .itemIcon {
+  background-color: var(--color-primary);
+}
+
+.iconBar {
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background-color: var(--color-primary-dark);
+  border-radius: 9999px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s ease;
+}
+
+.itemOpen .iconBar {
+  background-color: var(--color-surface);
+}
+
+/* Vertical bar — rotates to disappear when open */
+.iconBarVertical {
+  transform: rotate(90deg);
+}
+
+.itemOpen .iconBarVertical {
+  transform: rotate(0deg);
+}
+
+/* ============================================
+   ANSWER PANEL — animated height
+   ============================================ */
+.itemPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.itemOpen .itemPanel {
+  grid-template-rows: 1fr;
+}
+
+.itemAnswer {
+  overflow: hidden;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  padding: 0 1.5rem;
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.itemOpen .itemAnswer {
+  padding: 0 1.5rem 1.25rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .left {
+    position: static;
+    top: auto;
+  }
+
+  .contactCard {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .itemTrigger {
+    padding: 1rem 1.25rem;
+  }
+
+  .itemQuestion {
+    font-size: 0.95rem;
+  }
+
+  .itemAnswer {
+    font-size: 0.9rem;
+    padding: 0 1.25rem;
+  }
+
+  .itemOpen .itemAnswer {
+    padding: 0 1.25rem 1.1rem;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .itemPanel,
+  .itemAnswer,
+  .iconBar,
+  .contactDot {
+    transition: none;
+    animation: none;
+  }
+}

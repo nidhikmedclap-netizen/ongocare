@@ -1,0 +1,36 @@
+.wrap {
+  margin: 0;
+}
+
+.wrapCompact {
+  margin: 0;
+}
+
+.body,
+.footer {
+  margin: 0;
+  font-size: inherit;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: inherit;
+  font-family: inherit;
+}
+
+.footer {
+  margin-top: 12px;
+}
+
+.signatureBlock {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 8px;
+}
+
+.signatureImg {
+  display: block;
+  max-width: min(220px, 45%);
+  max-height: 80px;
+  object-fit: contain;
+}

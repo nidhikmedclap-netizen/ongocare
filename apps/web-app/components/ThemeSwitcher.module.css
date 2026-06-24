@@ -1,0 +1,177 @@
+/* ============================================
+   INLINE WRAPPER — sits in the header
+   ============================================ */
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ============================================
+   TOGGLE BUTTON — circular, header-sized
+   ============================================ */
+.toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.2s ease;}
+
+.toggle:hover {
+  background-color: var(--color-primary-dark);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.toggle:active {
+  transform: scale(0.95);
+}
+
+.toggle[aria-expanded="true"] {
+  background-color: var(--color-primary-dark);
+}
+
+.toggleIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ============================================
+   DROPDOWN SWATCH PANEL — drops below toggle
+   ============================================ */
+.panel {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 0.6rem 1rem 0.6rem 1.1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1),
+    0 16px 40px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(-6px) scale(0.96);
+  pointer-events: none;
+  transform-origin: top right;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.panelOpen {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.panelLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   SWATCHES — color circles
+   ============================================ */
+.swatches {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  outline: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: outline-color 0.2s ease, transform 0.15s ease;}
+
+.swatch:hover {
+  transform: scale(1.12);
+}
+
+.swatchActive {
+  outline-color: var(--color-text);
+}
+
+.swatchCheck {
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+  .toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .toggleIcon {
+    font-size: 1rem;
+  }
+
+  .panel {
+    padding: 0.5rem 0.8rem;
+    gap: 0.75rem;
+  }
+
+  .panelLabel {
+    display: none;
+  }
+
+  .swatch {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle,
+  .panel,
+  .swatch {
+    transition: none;
+  }
+}
+
+/* Fixed corner placement — used on full-height onboarding screens */
+.floating {
+  position: fixed;
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  right: max(20px, env(safe-area-inset-right, 0px));
+  z-index: 1000;
+}
+
+.floating .panel {
+  top: auto;
+  bottom: calc(100% + 0.6rem);
+  transform: translateY(6px) scale(0.96);
+  transform-origin: bottom right;
+}
+
+.floating .panelOpen {
+  transform: translateY(0) scale(1);
+}

@@ -1,0 +1,5 @@
+// Token endpoint baked into the app (Debug + Release). Replace with your deployed HTTPS URL
+// after you host server/token-server.mjs (Railway, Render, Fly.io, etc.). No Mac terminal needed on the phone.
+// Use https:/$()/host/path — the $() stops "//" from being treated as an xcconfig comment.
+
+VOICE_TOKEN_BASE_URL = https:/$()/ongovoiceapp.taskor.io/token

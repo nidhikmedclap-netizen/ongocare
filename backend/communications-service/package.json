@@ -1,0 +1,24 @@
+{
+  "name": "@ongocare/communications-service",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OngoCare Communications Hub — Twilio voice webhooks and Firestore persistence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed:org": "node scripts/seedOrganizationFoundation.js",
+    "seed:memberships": "node scripts/seedOrgMemberships.js",
+    "seed:chat-sites": "node scripts/seedChatSites.js",
+    "backfill:org-slug": "node scripts/backfillOrgSlug.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.2",
+    "twilio": "^5.4.0"
+  }
+}

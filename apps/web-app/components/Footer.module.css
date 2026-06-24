@@ -1,0 +1,432 @@
+/* ============================================
+   FOOTER — Modern, dark sage canvas
+   ============================================ */
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-dark) 0%,
+    #122a20 100%
+  );
+  color: #f1ebe0;
+  padding: 4.5rem 1.5rem 2rem;}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   TOP — brand + newsletter
+   ============================================ */
+.top {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: #ffffff;
+  align-self: flex-start;
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 72px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(241, 235, 224, 0.75);
+  max-width: 360px;
+}
+
+.contactRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(241, 235, 224, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.contactLink:hover {
+  color: var(--color-primary-light);
+}
+
+.contactIcon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  color: var(--color-primary-light);
+}
+
+/* ============================================
+   NEWSLETTER
+   ============================================ */
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.newsletterEyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary-light);
+}
+
+.newsletterHeading {
+  margin: 0.1rem 0 0;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.newsletterCopy {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(241, 235, 224, 0.7);
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 0.3rem 0.3rem 0.3rem 1.1rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.newsletterForm:focus-within {
+  border-color: var(--color-primary-light);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.newsletterInput {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.95rem;}
+
+.newsletterInput::placeholder {
+  color: rgba(241, 235, 224, 0.45);
+}
+
+.newsletterBtn {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.newsletterBtn:hover {
+  background-color: #a3dcc1;
+  transform: translateY(-1px);
+}
+
+.newsletterSuccess {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-primary-light);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   LINK GRID
+   ============================================ */
+.linkGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.linkCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.colHeading {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary-light);
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.link {
+  color: rgba(241, 235, 224, 0.78);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.link:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+/* ============================================
+   DISCLAIMER
+   ============================================ */
+.disclaimer {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.disclaimer p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: rgba(241, 235, 224, 0.55);
+  max-width: 900px;
+}
+
+.disclaimer strong {
+  color: rgba(241, 235, 224, 0.85);
+  font-weight: 600;
+}
+
+/* ============================================
+   BOTTOM ROW
+   ============================================ */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(241, 235, 224, 0.6);
+}
+
+.socialRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.socialBtn:hover {
+  transform: translateY(-2px);
+}
+
+.socialInstagram {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  color: #ffffff;
+}
+
+.socialInstagram:hover {
+  box-shadow: 0 6px 16px rgba(220, 39, 67, 0.45);
+}
+
+.socialYoutube {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.socialYoutube:hover {
+  background-color: #cc0000;
+  box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+}
+
+.socialYelp {
+  background-color: #d32323;
+  color: #ffffff;
+}
+
+.socialYelp:hover {
+  background-color: #af1d1d;
+  box-shadow: 0 6px 16px rgba(211, 35, 35, 0.4);
+}
+
+/* ============================================
+   DECORATIVE BLOB
+   ============================================ */
+.blob {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(116, 198, 157, 0.18) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .footer {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+  .top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .linkGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.25rem;
+    padding: 2.5rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .newsletterForm {
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    padding: 0;
+    gap: 0.65rem;
+  }
+
+  .newsletterInput {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .newsletterBtn {
+    width: 100%;
+    padding: 0.85rem 1.4rem;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .linkGrid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .socialBtn,
+  .newsletterBtn,
+  .newsletterSuccess {
+    transition: none;
+    animation: none;
+  }
+}

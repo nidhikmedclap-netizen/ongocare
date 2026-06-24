@@ -1,0 +1,508 @@
+/* ============================================
+   SECTION
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin: 0;
+  max-width: 720px;
+}
+
+.headingAccent {
+  font-style: italic;  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.subcopy {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 640px;
+}
+
+/* ============================================
+   STAGE â€” two-column layout: video + info
+   ============================================ */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;          /* was 'center' â€” now both columns match height */
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  background-color: var(--color-primary-soft);
+  border-radius: 28px;
+}
+
+/* Pause hint floats in top-right corner of stage */
+.pauseHint {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  color: var(--color-surface);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.stage:hover .pauseHint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   VIDEO FRAME â€” portrait orientation
+   ============================================ */
+.videoFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--color-primary-dark);
+  box-shadow:
+    0 8px 24px rgba(20, 17, 13, 0.12),
+    0 24px 48px -12px rgba(20, 17, 13, 0.18);
+  margin: 0 auto;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: videoFadeIn 0.6s ease-out;
+}
+
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   INFO CARD â€” sits beside the video, not on it
+   ============================================ */
+.infoCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 2.5rem;                /* slightly more padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;        /* center content vertically in the taller card */
+  gap: 1.5rem;                    /* more breathing room between elements */
+  animation: infoSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(20, 17, 13, 0.06);
+  /* No fixed height â€” stretches with grid */
+}
+
+@keyframes infoSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.infoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.medName {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.newBadge {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+}
+
+/* Quick description added under name (optional, can remove if you want minimal) */
+.medDescription {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.benefitList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.offLabelNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  background-color: var(--color-accent-soft);
+  border: 1px solid rgba(231, 111, 81, 0.25);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #8a3a26;
+  font-weight: 500;
+}
+
+.offLabelIcon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 1px;
+  line-height: 1;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.benefitCheck {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.ctaRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  padding: 0.95rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;  transition: background-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.2s ease;
+  align-self: flex-start;
+  box-shadow: 0 4px 12px rgba(52, 126, 93, 0.25);
+}
+
+.learnMoreLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.learnMoreLink:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.ctaButton:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(52, 126, 93, 0.35);
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progressTrack {
+  height: 4px;
+  background-color: var(--color-surface-alt);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-light),
+    var(--color-primary)
+  );
+  border-radius: 9999px;
+  transition: width 50ms linear;
+}
+
+/* ============================================
+   PILL NAVIGATION
+   ============================================ */
+.pillNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  cursor: pointer;  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: all 0.25s ease;
+}
+
+.pill:hover {
+  border-color: var(--color-primary-light);
+  background-color: var(--color-primary-soft);
+}
+
+.pillActive {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 126, 93, 0.3);
+}
+
+.pillNumber {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.pillActive .pillNumber {
+  opacity: 0.85;
+}
+
+.pillName {
+  font-weight: 600;
+}
+
+.pillNewBadge {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.pillActive .pillNewBadge {
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+}
+
+/* ============================================
+   DISCLAIMERS
+   ============================================ */
+.disclaimers {
+  margin-top: 3rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.disclaimerLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.disclaimerSmall {
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  margin: 0;
+  border-left: 2px solid var(--color-accent-soft);
+  padding-left: 0.75rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  /* Flex column so we can reorder children on mobile */
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header        { order: 0; }
+  .stage         { order: 1; }
+  .disclaimers   { order: 2; }
+  .progressTrack { order: 3; }
+  .pillNav       { order: 4; }
+
+  /* Tighter spacing for disclaimers now that they sit right under the card */
+  .disclaimers {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stage {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .videoFrame {
+    max-height: 480px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .infoCard {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .ctaButton {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .pill {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .pillNumber {
+    display: none;
+  }
+
+  .videoFrame {
+    max-height: 400px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video,
+  .infoCard,
+  .progressFill,
+  .pillActive {
+    animation: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "lines": [
+    {
+      "number": "+15592344795",
+      "clientIdentity": "voice_client",
+      "ringTimeoutSeconds": 25,
+      "voicemailGreeting": "Thanks for calling our Fresno line. Please leave a message after the tone."
+    },
+    {
+      "number": "+14155550100",
+      "clientIdentity": "voice_client",
+      "ringTimeoutSeconds": 30,
+      "voicemailGreeting": "You have reached our main office. Leave a detailed message and we will return your call."
+    }
+  ]
+}

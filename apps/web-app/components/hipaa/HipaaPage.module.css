@@ -1,0 +1,850 @@
+/* ============================================
+   PAGE — design tokens only (globals.css)
+   Radius scale: 9999px pills · 32px shell · 28px card · 20px tile · 18px item · 16px icon
+   Section rhythm: 5rem 1.5rem (comparison standard)
+   ============================================ */
+.page {
+  width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-site);
+  overflow-x: clip;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.sectionAlt {
+  background: var(--color-surface);
+}
+
+.sectionSoft {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(216, 243, 220, 0.4) 0%, transparent 65%),
+    var(--color-bg);
+}
+
+/* Typography — matches comparison scale */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.eyebrowLight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+.eyebrowLight .eyebrowDot {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.headingAccent {
+  font-style: italic;
+  color: var(--color-primary-light);
+  font-weight: 500;
+}
+
+.sectionHeadingLeft {
+  margin: 0.75rem 0 0;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+}
+
+.bodyText {
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* Buttons — exact comparison tokens */
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-text);
+  color: var(--color-surface);
+  padding: 1rem 1.85rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+.primaryBtn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.85rem;
+  border-radius: 9999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.secondaryBtn:hover {
+  background: var(--color-surface-alt);
+  border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+  transform: translateY(-1px);
+}
+
+.secondaryBtnLight {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.secondaryBtnLight:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.textLink {
+  display: inline-flex;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.textLink:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: clamp(380px, 48vh, 480px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center 25%;
+  transform: scale(1.02);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(27, 67, 50, 0.94) 0%,
+      rgba(27, 67, 50, 0.78) 48%,
+      rgba(52, 126, 93, 0.5) 100%
+    );
+}
+
+.heroPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  background-image:
+    radial-gradient(circle at 18% 82%, rgba(255, 255, 255, 0.1) 0%, transparent 42%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+
+.heroShell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5.5rem 1.5rem 4.5rem;
+}
+
+.heroTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.heroDate {
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.heroTitle {
+  margin: 0;
+  max-width: 720px;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.heroTitleLead {
+  color: var(--color-surface);
+}
+
+.heroTitleMid {
+  font-style: italic;
+  color: var(--color-accent-soft);
+  font-weight: 500;
+}
+
+.heroTitleEnd {
+  color: var(--color-primary-light);
+}
+
+.heroIntro {
+  margin: 1.25rem 0 0;
+  max-width: 560px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.heroActions .secondaryBtn {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ============================================
+   STATS — floating bridge
+   ============================================ */
+.statsWrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -2.75rem;
+  padding: 0 1.5rem;
+}
+
+.statsGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  padding: 1.35rem 1.5rem;
+  border-radius: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 40px rgba(27, 67, 50, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(27, 67, 50, 0.12);
+}
+
+.statValue {
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-primary-dark);
+  line-height: 1.1;
+}
+
+.statLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
+
+/* ============================================
+   SURFACE CARDS
+   ============================================ */
+.surfaceCard {
+  padding: clamp(2rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 1px 2px rgba(27, 67, 50, 0.03),
+    0 16px 40px rgba(27, 67, 50, 0.07);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.iconTile {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 16px;
+  background: var(--color-primary-soft);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 15%, var(--color-border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+/* Commitment bento */
+.bentoCommitment {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.bentoLead {
+  display: flex;
+  flex-direction: column;
+}
+
+.bentoSupport {
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-primary-soft) 45%, var(--color-surface)) 0%,
+      var(--color-surface) 100%
+    );
+}
+
+.miniShield {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.miniShieldImg {
+  border-radius: 10px;
+}
+
+/* Uses asymmetric layout */
+.usesLayout {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.usesAside {
+  position: sticky;
+  top: calc(80px + 2rem);
+}
+
+.asideNote {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--color-accent-soft) 55%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
+}
+
+.asideNote p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.68;
+  color: var(--color-text-muted);
+}
+
+.bentoUses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.useTile {
+  padding: 1.5rem 1.45rem;
+  border-radius: 20px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.useTile:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+  box-shadow: 0 12px 32px rgba(27, 67, 50, 0.08);
+}
+
+.useTileFeatured {
+  grid-column: 1 / -1;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-primary-soft) 70%, var(--color-surface)) 0%,
+      var(--color-surface-alt) 100%
+    );
+}
+
+.useTileHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.useTileIcon {
+  font-size: 1.35rem;
+}
+
+.useTileIndex {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--color-text-soft);
+}
+
+.useTileTitle {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-transform: capitalize;
+}
+
+.useTileBody {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* Rights split */
+.rightsLayout {
+  display: grid;
+  grid-template-columns: 0.38fr 0.62fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.rightsAside {
+  position: sticky;
+  top: calc(80px + 2rem);
+}
+
+.rightsActionCard {
+  margin-top: 1.75rem;
+  padding: 1.5rem 1.55rem;
+  border-radius: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 36px rgba(27, 67, 50, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rightsActionLead {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.rightsActionBody {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--color-text-muted);
+}
+
+.rightsActionCard .primaryBtn {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  font-size: 0.88rem;
+  padding: 0.85rem 1.45rem;
+}
+
+.rightsComplaint {
+  margin: 1.25rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--color-text-soft);
+}
+
+.rightsGrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.rightsTile {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1.25rem 1.2rem;
+  border-radius: 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rightsTile:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.06);
+}
+
+.rightsNum {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  background: var(--color-primary-dark);
+  color: var(--color-surface);
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightsTileTitle {
+  margin: 0 0 0.3rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+.rightsTileBody {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.58;
+  color: var(--color-text-muted);
+}
+
+/* Duo grid */
+.duoGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.changesCard {
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--color-accent-soft) 50%, var(--color-surface)) 0%,
+      var(--color-surface) 100%
+    );
+}
+
+.dutyList {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dutyList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: var(--color-text-muted);
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-primary-soft) 30%, var(--color-surface));
+}
+
+.dutyCheck {
+  flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.15em;
+}
+
+/* ============================================
+   CTA
+   ============================================ */
+.ctaSection {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark) 0%,
+    var(--color-primary) 100%
+  );
+  overflow: hidden;
+}
+
+.ctaGlow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.ctaShell {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.ctaHeading {
+  margin: 0.75rem 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--color-surface);
+}
+
+.ctaBody {
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 480px;
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.ctaActions .primaryBtn {
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+}
+
+.ctaActions .primaryBtn:hover {
+  background: var(--color-surface-alt);
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+.contactStrip {
+  padding: 3.5rem 1.5rem 5rem;
+  background: var(--color-bg);
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.75rem 2rem;
+  border-radius: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 36px rgba(27, 67, 50, 0.06);
+}
+
+.contactTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.contactOrg {
+  margin: 0.25rem 0 0;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contactChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.15rem;
+  border-radius: 9999px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.contactChip:hover {
+  background: var(--color-primary-soft);
+  border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .bentoCommitment,
+  .usesLayout,
+  .rightsLayout,
+  .duoGrid,
+  .ctaShell {
+    grid-template-columns: 1fr;
+  }
+
+  .usesAside,
+  .rightsAside {
+    position: static;
+  }
+
+  .rightsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsWrap {
+    margin-top: -1.5rem;
+  }
+
+  .bentoUses {
+    grid-template-columns: 1fr;
+  }
+
+  .useTileFeatured {
+    grid-column: auto;
+  }
+
+  .heroShell {
+    padding-top: 4.5rem;
+  }
+
+  .ctaActions {
+    width: 100%;
+  }
+
+  .ctaActions .primaryBtn,
+  .ctaActions .secondaryBtnLight {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryBtn,
+  .secondaryBtn,
+  .secondaryBtnLight,
+  .statCard,
+  .useTile,
+  .rightsTile,
+  .contactChip,
+  .textLink {
+    transition: none;
+  }
+}

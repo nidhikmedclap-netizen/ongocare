@@ -1,0 +1,83 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Firebase and service credentials
+*GoogleService-Info.plist
+*serviceAccount*.json
+*.p12
+*.p8
+*.mobileprovision
+
+# SSH and key material
+*.pem
+*.key
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Build output
+.next/
+out/
+build/
+dist/
+.turbo/
+
+# Caches
+.cache/
+.parcel-cache/
+.swc/
+.eslintcache
+*.tsbuildinfo
+.next-tsc/
+
+# Test / coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Misc
+*.local
+.vercel
+# Xcode
+DerivedData/
+DerivedData*/
+build/
+
+# Node
+node_modules/
+
+# Firebase
+firebase-debug.log
+
+# Certificates
+*.p12
+*.pem
+
+# macOS
+.DS_Store
+*.pem
+
+# Xcode user files
+xcuserdata/
+*.xcuserstate

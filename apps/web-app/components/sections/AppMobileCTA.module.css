@@ -1,0 +1,195 @@
+/* ============================================
+   SECTION — outer wrapper with side padding
+   ============================================ */
+.section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 3rem 1.5rem;
+}
+
+/* ============================================
+   CANVAS — orange rounded card
+   ============================================ */
+.canvas {
+  position: relative;
+ 
+  border-radius: 28px;
+  overflow: hidden;
+  background-color: var(--color-warm);
+  /* Subtle gradient adds dimension */
+  background-image: linear-gradient(
+    135deg,
+    var(--color-warm) 0%,
+    var(--color-warm-deep) 100%
+  );
+
+}
+.canvas_inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 420px;
+   max-width: 1280px;
+  margin: 0 auto;
+}
+/* ============================================
+   DECORATIVE SHAPES — sit behind everything
+   ============================================ */
+.decorShapes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   CONTENT — left column
+   ============================================ */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: var(--color-surface);
+  max-width: 520px;
+  justify-self: center;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-surface);
+  margin: 0;
+}
+
+.headingItalic {
+  font-style: italic;  color: var(--color-surface);
+  font-weight: 500;
+  /* Slight transparency separates italic from bold */
+  opacity: 0.95;
+}
+
+.subcopy {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  max-width: 360px;
+  font-weight: 500;
+}
+
+/* ============================================
+   CTA — white pill on warm canvas
+   ============================================ */
+.ctaButton {
+  align-self: flex-start;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.875rem 2.25rem;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ctaButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   IMAGE — right column, bleeds to edges
+   ============================================ */
+.imageWrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.heroImage {
+  /* position: absolute;
+  inset: 0; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Soft fade on left edge so image blends with canvas */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 100px,
+    #000 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 100px,
+    #000 100%
+  );
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .canvas {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 20px;
+  }
+
+  .content {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+
+  .imageWrap {
+    min-height: 320px;
+  }
+
+  .heroImage {
+    /* Drop the side mask on mobile — image is its own row */
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .decorShapes {
+    /* Scale shapes for mobile */
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .content {
+    padding: 2rem 1.25rem 1.25rem;
+  }
+}

@@ -1,0 +1,181 @@
+@import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   DESIGN TOKENS — COLORS
+   Used across the entire app via var(--token-name)
+   ============================================ */
+:root {
+  /*
+   * SITE FONT — single CSS token for the whole app.
+   * Files/loader: lib/typography/site-font.js + app/fonts/
+   * Keep the name below in sync with SITE_FONT_NAME in site-font.js.
+   */
+  --font-site: var(--font-teachers), "Teachers", sans-serif;
+
+  /* Brand — Primary (sage green) */
+  --color-primary: #347e5d;
+  --color-primary-dark: #1b4332;
+  --color-primary-light: #74c69d;
+  --color-primary-soft: #d8f3dc;
+
+  /* purple */
+   /* --color-primary: #7c5cd6;
+  --color-primary-dark: #4c3a9b;
+  --color-primary-light: #b8a4f0;
+  --color-primary-soft: #f3eefe; */
+
+  /* blue */
+  /* --color-primary: #0e7490;
+  --color-primary-dark: #155e75;
+  --color-primary-light: #67e8f9;
+  --color-primary-soft: #ecfeff; */
+
+    /* Brand — Primary (warm wine) */
+  /* --color-primary: #b8455e;
+  --color-primary-dark: #7d2c40;
+  --color-primary-light: #e8a4b3;
+  --color-primary-soft: #fdf2f4; */
+
+  /* Accent (warm coral) */
+  --color-accent: #e76f51;
+  --color-accent-soft: #fce4dc;
+
+  /* Surfaces & Backgrounds */
+  --color-bg: #fffbf5;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f4f1ec;
+
+  /* Text */
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c6b73;
+  --color-text-soft: #8a9a9e;
+
+  /* Borders & Dividers */
+  --color-border: #e5e0d8;
+
+  /* Semantic */
+  --color-success: #52b788;
+  --color-warning: #f4a261;
+  --color-error: #d62828;
+    --color-warm: #ee8a4f;
+  --color-warm-deep: #d97441;
+  --color-warm-soft: #f4a978;
+  --color-warm-glow: rgba(255, 255, 255, 0.12);
+  --gradient-purple: linear-gradient(#b39ffe, #725ebd);
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-site);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-site);
+  /* `overflow-x: hidden` on body turns it into a scroll container and
+     breaks `position: sticky` for descendants. `overflow-x: clip` prevents
+     horizontal scroll WITHOUT creating a scroll container. Older browsers
+     ignore `clip` and fall back to the previous `hidden` declaration. */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

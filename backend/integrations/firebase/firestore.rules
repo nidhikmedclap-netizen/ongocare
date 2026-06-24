@@ -1,0 +1,237 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function chatHasRequiredFields(d) {
+      return d.keys().hasAll([
+        "doctorUid",
+        "patientUid",
+        "bookingDoctorId",
+        "bookingDayId",
+        "bookingSlotId"
+      ]);
+    }
+
+    // Loose: any thread the user is part of (supports legacy docs without booking metadata).
+    function chatParticipantsOk(d) {
+      return signedIn()
+        && d.keys().hasAll(["doctorUid", "patientUid"])
+        && (
+          request.auth.uid == d.doctorUid ||
+          request.auth.uid == d.patientUid
+        );
+    }
+
+    function hasBookingLink(d) {
+      return d.keys().hasAll(["bookingDoctorId", "bookingDayId", "bookingSlotId"]);
+    }
+
+    // Doctor inbox: allow the Firebase user linked in `doctorDirectory` to read threads for their booking id
+    // even if `doctorUid` on an older doc was wrong or stale (patient query uses `bookingDoctorId`).
+    function doctorDirectoryReadOk(d) {
+      return signedIn()
+        && hasBookingLink(d)
+        && exists(/databases/$(database)/documents/doctorDirectory/$(d.bookingDoctorId))
+        && get(/databases/$(database)/documents/doctorDirectory/$(d.bookingDoctorId)).data.linkedUserId == request.auth.uid;
+    }
+
+    // Patient fallback for legacy chat docs with stale participant metadata.
+    // If booking link exists and the slot belongs to this Firebase uid, patient can read chat/messages.
+    function bookedPatientReadOk(d) {
+      return signedIn()
+        && hasBookingLink(d)
+        && exists(/databases/$(database)/documents/dayBookings/$(d.bookingDayId)/slots/$(d.bookingSlotId))
+        && get(/databases/$(database)/documents/dayBookings/$(d.bookingDayId)/slots/$(d.bookingSlotId)).data.userId == request.auth.uid;
+    }
+
+    function clinicalChatActor(d) {
+      return chatParticipantsOk(d) || doctorDirectoryReadOk(d);
+    }
+
+    // Single definition for who may read thread metadata and subcollections (must stay in sync).
+    function canReadClinicalChatThread(d) {
+      return signedIn()
+        && (
+          clinicalChatActor(d)
+          || bookedPatientReadOk(d)
+          || (
+            d.keys().hasAll(["participantIds"])
+            && d.participantIds.hasAny([request.auth.uid])
+          )
+        );
+    }
+
+    // Legacy docs may have `doctorUid` = booking id (`dr_*`) while `participantIds` holds real Firebase UIDs.
+    function doctorUidUpdateAllowed(resource, request) {
+      return request.resource.data.doctorUid == resource.data.doctorUid
+        || (
+          resource.data.keys().hasAll(["participantIds"])
+          && resource.data.participantIds.hasAny([request.resource.data.doctorUid])
+        );
+    }
+
+    function patientUidUpdateAllowed(resource, request) {
+      return request.resource.data.patientUid == resource.data.patientUid
+        || (
+          resource.data.keys().hasAll(["participantIds"])
+          && resource.data.participantIds.hasAny([request.resource.data.patientUid])
+        );
+    }
+
+    function clinicalChatDoc(database, convId) {
+      return get(/databases/$(database)/documents/clinicalChats/$(convId));
+    }
+
+    function canAccessClinicalChatMessages(database, convId) {
+      let chat = clinicalChatDoc(database, convId);
+      return chat.exists && canReadClinicalChatThread(chat.data);
+    }
+
+    // Fallback for legacy documents: conversation ids are `{uidA}_{uidB}`.
+    // If metadata is stale but the authenticated uid is part of the id, allow message access.
+    function conversationIdContainsAuthUid(convId) {
+      return signedIn() && convId.matches(".*" + request.auth.uid + ".*");
+    }
+
+    function isChatParticipant(d) {
+      return signedIn() && chatHasRequiredFields(d) && (
+        request.auth.uid == d.doctorUid ||
+        request.auth.uid == d.patientUid
+      );
+    }
+
+    function linkedBookingIsValid(d) {
+      return chatHasRequiredFields(d)
+        && exists(/databases/$(database)/documents/dayBookings/$(d.bookingDayId)/slots/$(d.bookingSlotId))
+        && get(/databases/$(database)/documents/dayBookings/$(d.bookingDayId)/slots/$(d.bookingSlotId)).data.userId == d.patientUid
+        && get(/databases/$(database)/documents/dayBookings/$(d.bookingDayId)/slots/$(d.bookingSlotId)).data.doctorId == d.bookingDoctorId
+        && exists(/databases/$(database)/documents/doctorDirectory/$(d.bookingDoctorId))
+        && get(/databases/$(database)/documents/doctorDirectory/$(d.bookingDoctorId)).data.linkedUserId == d.doctorUid;
+    }
+
+    match /users/{userId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+    // Parent docs must be readable to list/query `dayBookings` (fallback scan). Slot reads are already allowed below.
+    match /dayBookings/{dayDoc} {
+      allow read: if signedIn();
+    }
+    match /dayBookings/{dayDoc}/slots/{slotId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid;
+      allow delete: if signedIn()
+        && resource.data.userId == request.auth.uid;
+      allow update: if signedIn()
+        && (
+          resource.data.userId == request.auth.uid
+          || (
+            resource.data.keys().hasAll(["doctorId"])
+            && exists(/databases/$(database)/documents/doctorDirectory/$(resource.data.doctorId))
+            && get(/databases/$(database)/documents/doctorDirectory/$(resource.data.doctorId)).data.linkedUserId == request.auth.uid
+          )
+        )
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+          "callStatus",
+          "callDurationSeconds",
+          "callEndedAt",
+          "updatedAt"
+        ])
+        && request.resource.data.callStatus == "completed";
+    }
+
+    // Doctor-editable slot templates; patient app reads to show bookable times.
+    match /doctorAvailability/{docId} {
+      allow read: if signedIn();
+      allow write: if signedIn();
+    }
+
+    // Maps booking id (e.g. dr_reva) → doctor Firebase uid for chat.
+    match /doctorDirectory/{docId} {
+      allow read: if signedIn();
+      allow write: if signedIn();
+    }
+
+    // Runtime app configuration. Used for emergency/rolling Agora token updates without app release.
+    match /appConfig/{docId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // Doctor-created prescriptions; readable by doctor and owning patient.
+    match /prescriptions/{rxId} {
+      allow create: if signedIn()
+        && request.resource.data.doctorUid == request.auth.uid;
+      allow read: if signedIn()
+        && (
+          resource.data.doctorUid == request.auth.uid
+          || resource.data.patientUid == request.auth.uid
+        );
+      allow update: if signedIn()
+        && resource.data.doctorUid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Clinical chat only for patient-doctor pairs with a real booked slot link.
+    match /clinicalChats/{convId} {
+      // Read/list: participant, directory-linked doctor, or explicit participantIds (legacy / seed docs).
+      allow read: if canReadClinicalChatThread(resource.data);
+      // Create: full booking metadata (preferred) OR seed doc from app merge where caller is a listed participant.
+      allow create: if signedIn()
+        && (
+          (isChatParticipant(request.resource.data) && linkedBookingIsValid(request.resource.data))
+          || (
+            request.resource.data.keys().hasAll(["doctorUid", "patientUid", "participantIds"])
+            && request.resource.data.participantIds.hasAny([request.auth.uid])
+          )
+        );
+      // Must match read access: threads can be readable via `participantIds` even when
+      // `clinicalChatActor` fails (legacy / odd docs). Otherwise `setData(merge:)` prep fails with permission denied.
+      allow update: if canReadClinicalChatThread(resource.data)
+        && canReadClinicalChatThread(request.resource.data)
+        && request.resource.data.keys().hasAll(["participantIds"])
+        && request.resource.data.participantIds.hasAny([request.auth.uid])
+        && doctorUidUpdateAllowed(resource, request)
+        && patientUidUpdateAllowed(resource, request)
+        && (!hasBookingLink(resource.data) || (
+          request.resource.data.bookingDoctorId == resource.data.bookingDoctorId
+          && request.resource.data.bookingDayId == resource.data.bookingDayId
+          && request.resource.data.bookingSlotId == resource.data.bookingSlotId
+        ));
+      allow delete: if false;
+
+      match /messages/{msgId} {
+        allow read: if canAccessClinicalChatMessages(database, convId)
+          || conversationIdContainsAuthUid(convId);
+        allow create: if (canAccessClinicalChatMessages(database, convId)
+          || conversationIdContainsAuthUid(convId))
+          && request.resource.data.senderId == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+
+    // Communications Hub (root collections) — server writes via Admin SDK only.
+    match /contacts/{contactId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /conversations/{conversationId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /communications/{communicationId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /calls/{callSid} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+  }
+}

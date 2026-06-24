@@ -1,0 +1,45 @@
+/* ============================================
+   CASCADE WRAPPER — animates as a single unit
+   ============================================ */
+.wrapper {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Direction variants */
+.from_up {
+  transform: translateY(60px);
+}
+
+.from_down {
+  transform: translateY(-60px);
+}
+
+.from_left {
+  transform: translateX(-60px);
+}
+
+.from_right {
+  transform: translateX(60px);
+}
+
+/* ============================================
+   VISIBLE STATE
+   ============================================ */
+.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .wrapper {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+    opacity: 1;
+  }
+}
