@@ -2,6 +2,7 @@
 //
 // Shared URL helpers for transactional emails (server-only).
 
+import { onboardingResumePathFromProfile } from "@/lib/onboarding/resumePath";
 import {
   getDashboardOrigin,
   getMarketingOrigin,
@@ -47,4 +48,20 @@ export function resolvePatientPortalLink(orgSlug) {
   const origin = getDashboardOrigin() || getMarketingOrigin();
   if (!origin) return path;
   return `${stripTrailingSlash(origin)}${path}`;
+}
+
+/** Deep link back into the weight-loss onboarding form (marketing origin). */
+export function resolveOnboardingResumeLink(profile) {
+  const path = onboardingResumePathFromProfile(profile);
+  const marketing = getMarketingOrigin();
+  if (marketing && !isLocalOrigin(marketing)) {
+    return `${stripTrailingSlash(marketing)}${path}`;
+  }
+  const publicMarketing = stripTrailingSlash(
+    process.env.EMAIL_ASSET_ORIGIN || "https://web.ongoweightloss.com",
+  );
+  if (publicMarketing && !isLocalOrigin(publicMarketing)) {
+    return `${publicMarketing}${path}`;
+  }
+  return marketingUrl(path);
 }

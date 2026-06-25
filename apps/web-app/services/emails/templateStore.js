@@ -9,6 +9,10 @@ import {
   templateMeta as welcomeMeta,
 } from "@/services/emails/templates/new-patient-signup/welcome-email";
 import {
+  ONBOARDING_PROCESS_DEFAULTS,
+  templateMeta as onboardingProcessMeta,
+} from "@/services/emails/templates/new-patient-signup/onboarding-process";
+import {
   PAYMENT_SUCCESS_DEFAULTS,
   templateMeta as paymentMeta,
 } from "@/services/emails/templates/patient-billing/payment-successful";
@@ -16,6 +20,10 @@ import {
   APPOINTMENT_BOOKED_DEFAULTS,
   templateMeta as appointmentMeta,
 } from "@/services/emails/templates/patient-appointments/appointment-booked";
+import {
+  APPOINTMENT_REMINDER_DEFAULTS,
+  templateMeta as appointmentReminderMeta,
+} from "@/services/emails/templates/patient-appointments/appointment-reminder";
 
 if (typeof window !== "undefined") {
   throw new Error("[email/templateStore] Server-only.");
@@ -25,14 +33,18 @@ const COLLECTION = "emailTemplates";
 
 const CODE_DEFAULTS = {
   "new-patient-signup/welcome-email": WELCOME_EMAIL_DEFAULTS,
+  "new-patient-signup/onboarding-process": ONBOARDING_PROCESS_DEFAULTS,
   "patient-billing/payment-successful": PAYMENT_SUCCESS_DEFAULTS,
   "patient-appointments/appointment-booked": APPOINTMENT_BOOKED_DEFAULTS,
+  "patient-appointments/appointment-reminder": APPOINTMENT_REMINDER_DEFAULTS,
 };
 
 const CODE_META = {
   "new-patient-signup/welcome-email": welcomeMeta,
+  "new-patient-signup/onboarding-process": onboardingProcessMeta,
   "patient-billing/payment-successful": paymentMeta,
   "patient-appointments/appointment-booked": appointmentMeta,
+  "patient-appointments/appointment-reminder": appointmentReminderMeta,
 };
 
 function templateKey(category, templateId) {

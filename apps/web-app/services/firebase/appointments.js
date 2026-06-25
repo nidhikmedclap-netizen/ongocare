@@ -23,6 +23,10 @@
 //   ├── cancelRemark        string  — reason shown to patient when cancelled
 //   ├── doctorPaymentCents  number  — fixed fee earned when visit is completed
 //   ├── doctorPaymentAt     timestamp
+//   ├── appointmentEmailSentAt     timestamp? — confirmation email sent
+//   ├── appointmentReminderEmailSentAt timestamp? — 2-min reminder sent
+//   ├── appointmentStartAt  timestamp? — UTC instant of visit start
+//   ├── reminderDueAt       timestamp? — send reminder at start − 2 minutes
 //   ├── createdAt           timestamp
 //   └── updatedAt           timestamp
 
@@ -40,6 +44,8 @@ import {
   isVisibleToDoctor,
   mergePaymentIntoOnboarding,
 } from "@/lib/billing/patientPayment";
+import { appointmentInstantMs } from "@/lib/time/timezone";
+import { APPOINTMENT_REMINDER_BEFORE_MS } from "@/services/emails/appointmentReminderConfig";
 
 const COLLECTION = "appointments";
 
@@ -50,6 +56,15 @@ export const APPOINTMENT_TYPES = CONSULTATION_TYPES;
 
 function nowTs() {
   return FieldValue.serverTimestamp();
+}
+
+function appointmentScheduleTimestamps(data) {
+  const startMs = appointmentInstantMs(data.date, data.time, data.doctorTimezone);
+  if (startMs == null) return {};
+  return {
+    appointmentStartAt: Timestamp.fromMillis(startMs),
+    reminderDueAt: Timestamp.fromMillis(startMs - APPOINTMENT_REMINDER_BEFORE_MS),
+  };
 }
 
 function buildAppointmentData(input) {
@@ -78,7 +93,7 @@ function buildAppointmentData(input) {
   if (!data.patientUid || !data.doctorUid || !data.date || !data.time) {
     throw new Error("appointment is missing required fields");
   }
-  return data;
+  return { ...data, ...appointmentScheduleTimestamps(data) };
 }
 
 function slotLockId(doctorUid, date, time) {

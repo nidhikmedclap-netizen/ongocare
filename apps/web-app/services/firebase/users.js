@@ -21,6 +21,7 @@
 //   ├── onboarding        map            — full snapshot of form state
 //   ├── welcomeEmailSentAt timestamp?   — set after welcome email (post email/password signup)
 //   ├── welcomeEmailPending boolean?    — email/password signup awaiting profile firstName
+//   ├── onboardingProcessEmailSentAt timestamp? — after cron onboarding reminder (5+ min after signup)
 //   ├── createdAt         timestamp
 //   └── updatedAt         timestamp
 //

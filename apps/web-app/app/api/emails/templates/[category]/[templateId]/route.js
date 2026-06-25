@@ -14,6 +14,11 @@ import {
   WELCOME_PLACEHOLDERS,
 } from "@/services/emails/templates/new-patient-signup/welcome-email";
 import {
+  buildOnboardingProcessEmailFromTemplate,
+  buildOnboardingProcessTemplateVars,
+  ONBOARDING_PROCESS_PLACEHOLDERS,
+} from "@/services/emails/templates/new-patient-signup/onboarding-process";
+import {
   buildPaymentSuccessEmailFromTemplate,
   buildPaymentSuccessTemplateVars,
   PAYMENT_SUCCESS_PLACEHOLDERS,
@@ -23,6 +28,11 @@ import {
   buildAppointmentBookedTemplateVars,
   APPOINTMENT_BOOKED_PLACEHOLDERS,
 } from "@/services/emails/templates/patient-appointments/appointment-booked";
+import {
+  buildAppointmentReminderEmailFromTemplate,
+  buildAppointmentReminderTemplateVars,
+  APPOINTMENT_REMINDER_PLACEHOLDERS,
+} from "@/services/emails/templates/patient-appointments/appointment-reminder";
 import { resolveOrgEmailBranding } from "@/lib/branding/orgBranding";
 import { EMAIL_LOGO } from "@/lib/branding/defaults";
 import { DEFAULT_ORG_SLUG } from "@/lib/orgs";
@@ -51,6 +61,27 @@ const TEMPLATE_HANDLERS = {
         branding,
         logoUrl,
         portalLink,
+        vars,
+      });
+    },
+  },
+  "new-patient-signup/onboarding-process": {
+    placeholders: ONBOARDING_PROCESS_PLACEHOLDERS,
+    buildPreview: async ({ subject, body, branding, logoUrl, portalLink }) => {
+      const onboardingLink = `${portalLink.replace(/\/dashboard\/patient\/?$/, "")}/weightloss-onboard?step=s21`;
+      const vars = buildOnboardingProcessTemplateVars({
+        profile: { firstName: "Jane", lastName: "Doe", email: "jane.smith@example.com" },
+        branding,
+        portalLink,
+        onboardingLink,
+        fallbackEmail: "jane.smith@example.com",
+      });
+      return buildOnboardingProcessEmailFromTemplate({
+        subjectTemplate: subject,
+        bodyTemplate: body,
+        branding,
+        logoUrl,
+        portalLink: onboardingLink,
         vars,
       });
     },
@@ -92,6 +123,29 @@ const TEMPLATE_HANDLERS = {
         appointmentTime: "10:00 AM EST",
       });
       return buildAppointmentBookedEmailFromTemplate({
+        subjectTemplate: subject,
+        bodyTemplate: body,
+        branding,
+        logoUrl,
+        portalLink,
+        vars,
+      });
+    },
+  },
+  "patient-appointments/appointment-reminder": {
+    placeholders: APPOINTMENT_REMINDER_PLACEHOLDERS,
+    buildPreview: async ({ subject, body, branding, logoUrl, portalLink }) => {
+      const vars = buildAppointmentReminderTemplateVars({
+        profile: { firstName: "Jane", lastName: "Doe", email: "jane.smith@example.com" },
+        branding,
+        portalLink,
+        fallbackEmail: "jane.smith@example.com",
+        doctorName: "Dr. Sarah Johnson",
+        appointmentType: "Initial consultation",
+        appointmentDate: "Monday, June 23, 2026",
+        appointmentTime: "10:00 AM EST",
+      });
+      return buildAppointmentReminderEmailFromTemplate({
         subjectTemplate: subject,
         bodyTemplate: body,
         branding,
