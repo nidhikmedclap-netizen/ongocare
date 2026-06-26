@@ -3,7 +3,8 @@
 import { FieldValue } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/firebase/admin";
 import { resolveOrgEmailBranding } from "@/lib/branding/orgBranding";
-import { DEFAULT_ORG_SLUG } from "@/lib/orgs";
+import { DEFAULT_ORG_SLUG } from "@/li
+b/orgs";
 import { PLAN_LABELS, formatMoney } from "@/lib/billing/money";
 import { hasPlanCheckout } from "@/lib/billing/patientPayment";
 import { normalizeOrgSlug } from "@/services/firebase/users";
